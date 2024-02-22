@@ -15,3 +15,12 @@ st.set_page_config(layout="wide")
 plt.figure(figsize=(12, 4))
 sns.boxplot(x='workclass', y='age', hue='workclass', data=df_adult_new, palette='Set3')
 st.pyplot(plt.gcf())
+
+# tab 1: EDA summary-2-3 graphs
+# tab 2: Correlation plot, chloropeth map, any other insight related graph, show outliers
+# tab 3: Scikit learn model
+
+
+
+
+

@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 import plotly.graph_objects as go
-import plotly.express as pximport streamlit as st
+import plotly.express as pximport 
+
 df_adult_new= pd.read_excel('Cleaned_Census_Data.xlsx')
 
 st.set_page_config(layout="wide")

@@ -28,3 +28,10 @@ sns.catplot(y='occupation',hue='income',data=df,kind="count")
 
 ax = sns.countplot(df, y = 'marital-status')
 ax.bar_label(ax.containers[0])
+
+race_count= df['race'].value_counts()
+fig = plt.figure(figsize=(6, 7))
+plt.pie(race_count, labels=race_count.index, autopct ='%.2f%%')
+plt.show()
+
+df.hist('age', bins= 20, color= 'beige', edgecolor='black')

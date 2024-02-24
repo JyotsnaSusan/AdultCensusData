@@ -10,7 +10,10 @@ import plotly.express as pximport
 import folium
 from streamlit.components.v1 import html as components_html
 from sklearn import preprocessing
-import pickle
+from prediction import predict
+import category_encoders as ce
+
+
 
 df_adult_new = pd.read_excel('Cleaned_Census_Data.xlsx')
 
@@ -85,3 +88,25 @@ with tab2:
         html_code = f.read()
 
     components_html(html_code, height=600)
+
+
+with tab3:
+    age1 = st.selectbox("Age", df_adult_new['age'].unique()) 
+    workclass1 = st.selectbox("Workclass", df_adult_new['workclass'].unique()) 
+    occupation1 = st.selectbox("Occupation", df_adult_new['occupation'].unique()) 
+    hours_per_week1 = st.selectbox("Hours per Week", df_adult_new['hours_per_week'].unique())
+    education1 = st.selectbox("Education", df_adult_new['education'].unique()) 
+    nativecountry1 = st.selectbox("Native Country", df_adult_new['nativecountry'].unique()) 
+    
+    if st.button("Predict Income"):
+        encoder = ce.OrdinalEncoder(cols=['workclass', 'education', 'nativecountry', 'occupation'])
+        data = {
+            'workclass': [workclass1],
+            'education': [education1],
+            'nativecountry': [nativecountry1],
+            'occupation': [occupation1]
+        }
+        encoded_data = encoder.fit_transform(pd.DataFrame(data))
+        input_data = np.concatenate((encoded_data.values[0], [hours_per_week1],[age1]))
+        result = predict(np.array([input_data]))
+        st.text(result[0])

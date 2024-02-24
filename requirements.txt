@@ -24,3 +24,4 @@ folium
 scipy
 scikit-learn
 altair
+joblib

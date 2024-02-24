@@ -37,14 +37,15 @@ st.image([logo_image,logo_image1], width=300)
 banner = "<div style='background-color: #24263f; padding: 10px; text-align: center;'><h2><font color=white>VNR Index-2030 Sustainable Development Goals</h2></div>"
 st.write(banner, unsafe_allow_html=True)
 
+    tab1, tab2 = st.tabs(["VNR", "GovernanceIndex"])
 
 
 
-tab1, tab2 = st.tabs(["VNR", "GovernanceIndex"])
-with tab1:
-    selected_tab = st.selectbox("Select Language", ["VNR(English)", "VNR(Spanish)"])
 
-    if selected_tab == "VNR(English)":
+        with tab1:
+            selected_tab = st.selectbox("Select Language", ["VNR(English)", "VNR(Spanish)"])
+
+            if selected_tab == "VNR(English)":
 
         col1, col2,col3 = st.columns((0.4,0.4,0.2))  
 

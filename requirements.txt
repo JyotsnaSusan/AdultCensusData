@@ -19,3 +19,8 @@ Pillow
 stqdm
 streamlit_echarts
 openpyxl
+streamlit
+folium
+scipy
+scikit-learn
+altair

@@ -25,3 +25,4 @@ scipy
 scikit-learn
 altair
 joblib
+category_encoders

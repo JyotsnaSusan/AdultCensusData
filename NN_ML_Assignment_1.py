@@ -23,7 +23,7 @@ st.set_page_config(layout="wide")
 # tab 2: Correlation plot, chloropeth map, any other insight related graph, show outliers
 # tab 3: Scikit learn model
 
-tab1, tab2, tab3 = st.tabs(["Feature Importance", "Key Feature", "Prediction Model"])
+tab1, tab2, tab3, tab4, tab5  = st.tabs(["Feature Importance","Features","Correlation Matrix", "Key Feature", "Prediction Model"])
 
 with tab1:
     sns.set_palette(sns.color_palette("Dark2", 8))
@@ -50,6 +50,38 @@ with tab1:
     st.pyplot(plt.gcf())
 
 with tab2:
+    sns.set_palette(sns.color_palette("twilight", 8))
+    fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(16, 10))
+    sns.scatterplot(x='age', y='hours_per_week', hue='income', palette ='Purples',data=df_adult_new,ax=axes[0, 0])
+    axes[0, 0].set_title('Age Distribution by Hours per Week and Income')
+
+    sns.barplot(x='education', y='hours_per_week', hue='income', data=df_adult_new,palette ='Purples', ax=axes[1, 1])
+    axes[1, 1].set_title('Hours per Week by Education and Income')
+
+    sns.boxplot(x='income', y='age', data=df_adult_new,hue = 'sex',palette ='Purples', ax=axes[0, 1])
+    axes[0, 1].set_title('Age vs Income')
+
+    race_count= df_adult_new['race'].value_counts()
+    axes[1,0].pie(race_count, labels=race_count.index, autopct ='%.2f%%',wedgeprops={'edgecolor': 'black'})
+    axes[1, 0].set_title('Race Distribution')
+    plt.tight_layout()  
+    st.pyplot(fig)
+
+with tab3:
+    cat_col = df_adult_new.select_dtypes(include=['object']).columns
+    num_col = df_adult_new.select_dtypes(exclude=['object']).columns
+    encoder = ce.OrdinalEncoder()
+    encoded_cat= encoder.fit_transform(df_adult_new[cat_col])
+    combined_df = pd.concat([df_adult_new[num_col], encoded_cat], axis=1)
+    correlation_matrix = combined_df.corr()
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(correlation_matrix, annot=True, cmap='twilight',fmt=".2f", annot_kws={"size": 8})
+    plt.title('Heatmap')
+    st.pyplot(plt.gcf())
+
+
+
+with tab4:
     st.write("We then used fnlwgt which is the number of people a variable represents to find per capita income and project density of incomes over 50K and under 50K by using a world map. What we saw was that almost anyone with income over 50K was in the US or Canada, even after adjusting for population size. This is therefore our key feature")
     df_adult_new['fnl_pct']=(df_adult_new['fnlwgt'] / df_adult_new['fnlwgt'].sum())*100    
     df_country_wt=df_adult_new.groupby(['nativecountry','income'])[['fnl_pct','fnlwgt']].sum().reset_index()
@@ -68,7 +100,7 @@ with tab2:
     
     world_geo = r'world_countries.json'
 
-    world_map = folium.Map(location=[0, 0], zoom_start=2, width='100%', height='800px')  
+    world_map = folium.Map(location=[0, 0], zoom_start=2, width='100%', height='80')  
 
     folium.Choropleth(
         geo_data=world_geo,
@@ -90,7 +122,7 @@ with tab2:
     components_html(html_code, height=600)
 
 
-with tab3:
+with tab5:
     age1 = st.selectbox("Age", df_adult_new['age'].unique()) 
     workclass1 = st.selectbox("Workclass", df_adult_new['workclass'].unique()) 
     occupation1 = st.selectbox("Occupation", df_adult_new['occupation'].unique()) 

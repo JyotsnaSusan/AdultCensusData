@@ -100,7 +100,7 @@ with tab4:
     
     world_geo = r'world_countries.json'
 
-    world_map = folium.Map(location=[0, 0], zoom_start=2, width='100%', height='80')  
+    world_map = folium.Map(location=[0, 0], zoom_start=2, width='100%', height=800)  
 
     folium.Choropleth(
         geo_data=world_geo,
@@ -129,14 +129,20 @@ with tab5:
     hours_per_week1 = st.selectbox("Hours per Week", df_adult_new['hours_per_week'].unique())
     education1 = st.selectbox("Education", df_adult_new['education'].unique()) 
     nativecountry1 = st.selectbox("Native Country", df_adult_new['nativecountry'].unique()) 
+    maritalstatus1 = st.selectbox("Marital Status", df_adult_new['marital_status'].unique()) 
+    gender = st.selectbox("Gender", df_adult_new['sex'].unique()) 
+
     
     if st.button("Predict Income"):
-        encoder = ce.OrdinalEncoder(cols=['workclass', 'education', 'nativecountry', 'occupation'])
+        encoder = ce.OrdinalEncoder(cols=['workclass', 'education', 'nativecountry', 'occupation','marital_status','sex'])
         data = {
             'workclass': [workclass1],
             'education': [education1],
             'nativecountry': [nativecountry1],
-            'occupation': [occupation1]
+            'occupation': [occupation1],
+            'marital_status':[maritalstatus1],
+            'sex':[gender]
+
         }
         encoded_data = encoder.fit_transform(pd.DataFrame(data))
         input_data = np.concatenate((encoded_data.values[0], [hours_per_week1],[age1]))

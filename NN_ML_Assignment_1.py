@@ -16,6 +16,7 @@ import category_encoders as ce
 
 
 df_adult_new = pd.read_excel('Cleaned_Census_Data.xlsx')
+df_Undersample = pd.read_excel('Undersampled_Model.xlsx')
 
 st.set_page_config(layout="wide")
 
@@ -23,7 +24,7 @@ st.set_page_config(layout="wide")
 # tab 2: Correlation plot, chloropeth map, any other insight related graph, show outliers
 # tab 3: Scikit learn model
 
-tab1, tab2, tab3, tab4, tab5  = st.tabs(["Feature Importance","Features","Correlation Matrix", "Key Feature", "Prediction Model"])
+tab1, tab2, tab3, tab4, tab5,tab6  = st.tabs(["Feature Importance","Features","Correlation Matrix", "Key Feature","KNN", "Prediction Model"])
 
 with tab1:
     sns.set_palette(sns.color_palette("Dark2", 8))
@@ -120,17 +121,34 @@ with tab4:
         html_code = f.read()
 
     components_html(html_code, height=600)
-
-
 with tab5:
-    age1 = st.selectbox("Age", df_adult_new['age'].unique()) 
-    workclass1 = st.selectbox("Workclass", df_adult_new['workclass'].unique()) 
-    occupation1 = st.selectbox("Occupation", df_adult_new['occupation'].unique()) 
-    hours_per_week1 = st.selectbox("Hours per Week", df_adult_new['hours_per_week'].unique())
-    education1 = st.selectbox("Education", df_adult_new['education'].unique()) 
-    nativecountry1 = st.selectbox("Native Country", df_adult_new['nativecountry'].unique()) 
-    maritalstatus1 = st.selectbox("Marital Status", df_adult_new['marital_status'].unique()) 
-    gender = st.selectbox("Gender", df_adult_new['sex'].unique()) 
+    df_knn = pd.read_csv("MeanAccKNN.csv")
+
+    values = df_knn['Value']
+    serial_numbers = df_knn['Serial Number']
+
+    fig1 = plt.figure()  
+    plt.plot(serial_numbers, values, 'g', marker='o')
+    plt.xlabel('Serial Number')
+    plt.ylabel('Value')
+    plt.title('Plot of Values vs Serial Numbers')
+    plt.tight_layout()
+    st.pyplot(fig1)
+
+    st.write("We also tried imputing the missing values using KNN, after determining that 79% accuracy could be achieved using 12 neighbours. But 79% accuracy was already achieved through our original cluster as well")
+    
+with tab6:
+
+    age1 = st.selectbox("Age", df_Undersample['age'].unique()) 
+    workclass1 = st.selectbox("Workclass", df_Undersample['workclass'].unique()) 
+    occupation1 = st.selectbox("Occupation", df_Undersample['occupation'].unique()) 
+    hours_per_week1 = st.selectbox("Hours per Week", df_Undersample['hours_per_week'].unique())
+    education1 = st.selectbox("Education", df_Undersample['education'].unique()) 
+    nativecountry1 = st.selectbox("Native Country", df_Undersample['nativecountry'].unique()) 
+    maritalstatus1 = st.selectbox("Marital Status", df_Undersample['marital_status'].unique()) 
+    gender = st.selectbox("Gender", df_Undersample['sex'].unique()) 
+    CG = st.selectbox("Capital Gains: Yes Or No", df_Undersample['CG_Category'].unique()) 
+
 
     
     if st.button("Predict Income"):
@@ -143,8 +161,8 @@ with tab5:
             'marital_status':[maritalstatus1],
             'sex':[gender]
 
-        }
+               }
         encoded_data = encoder.fit_transform(pd.DataFrame(data))
-        input_data = np.concatenate((encoded_data.values[0], [hours_per_week1],[age1]))
+        input_data = np.concatenate((encoded_data.values[0], [hours_per_week1],[age1],[CG]))
         result = predict(np.array([input_data]))
         st.text(result[0])

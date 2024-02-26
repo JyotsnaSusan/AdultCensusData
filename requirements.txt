@@ -22,7 +22,7 @@ openpyxl
 streamlit
 folium
 scipy
-scikit-learn
+scikit-learn==1.2.2
 altair
 joblib
 category_encoders

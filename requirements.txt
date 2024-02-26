@@ -12,3 +12,8 @@ altair
 joblib
 category_encoders
 plotly
+openpyxl
+graphviz
+Pillow
+stqdm
+streamlit_echarts

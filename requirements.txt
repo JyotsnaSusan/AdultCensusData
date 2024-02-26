@@ -11,4 +11,3 @@ scikit-learn==1.2.2
 altair
 joblib
 category_encoders
-path

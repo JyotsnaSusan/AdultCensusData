@@ -169,7 +169,7 @@ with tab4:
         fig1 = plt.figure()  
         plt.plot(serial_numbers, values, 'g', marker='o')
         plt.xlabel('Number Of neighbours')
-        plt.ylabel('Accurace')
+        plt.ylabel('Accuracy')
         plt.title('KKN Number of Neighbours Vs Accuracy')
         plt.tight_layout()
         st.pyplot(fig1)

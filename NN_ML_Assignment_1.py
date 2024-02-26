@@ -139,19 +139,19 @@ with tab3:
 with tab4:
     col1, col2 = st.columns((0.65,0.35))  
     with col1:
-        Edu_path = os.path.join(current_directory, "Education.png")
+        Edu_path = os.path.join(current_directory, "Education.PNG")
         Edu= open(Edu_path, "rb").read()
         st.image(Edu, width=700)
         tab4_1write="<div><Font size=4><font color=black>Education was translated into number as set forward by worldbanks' education department</div>"
         st.write(tab4_1write,unsafe_allow_html=True)
 
-        Occ_path = os.path.join(current_directory, "Occupation.png")      
+        Occ_path = os.path.join(current_directory, "Occupation.PNG")      
         Occ= open(Occ_path, "rb").read()
         st.image(Occ, width=700)
         tab4_2write="<div><Font size=4><font color=black>Occupation, work class and native country values were filled using on a manually determined cluster, based on our previous feature analysis</div>"
         st.write(tab4_2write,unsafe_allow_html=True)
 
-        Acc_path = os.path.join(current_directory, "Accuracy.png")          
+        Acc_path = os.path.join(current_directory, "Accuracy.PNG")          
         Acc= open(Acc_path, "rb").read()
         st.image(Acc, width=700)
         tab4_3write="<div><Font size=4><font color=black>All these steps lead to an accuracy score of 79.5% using both logistic regression and random forest algorithms</div>"
@@ -241,7 +241,7 @@ with tab5:
         tab5write="<div><Font size=4><font color=black>We also tried removing outliers like those in age brackets over 90. But the population size of the outliers was too small to reduce skew or improve accuracy. Our model continued to show a 79.5% accuracy despite these changes.</div>"
         st.write(tab5write,unsafe_allow_html=True)
 
-        age_path = os.path.join(current_directory, "Age.png")
+        age_path = os.path.join(current_directory, "Age.PNG")
         
         age= open(age_path, "rb").read()
         st.image(age, width=500)

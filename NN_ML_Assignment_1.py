@@ -12,6 +12,7 @@ from streamlit.components.v1 import html as components_html
 from sklearn import preprocessing
 from prediction import predict
 import category_encoders as ce
+import path
 
 
 

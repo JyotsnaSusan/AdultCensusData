@@ -27,7 +27,7 @@ banner = "<div style='background-color: #90be6d; padding: 10px; text-align: cent
 st.write(banner, unsafe_allow_html=True)
 
 with st.sidebar:
-    sidebarletters="<div><Font size=3><font color=black>The income of a person is influenced by various social, political and geographic factors. In this assignent we have attempted to eliminate all other noise and only focus on demographic factors that influence income. The model used a combination of Undersampling and Random Forest Classification to determine the income of an individual with a 79.5% accuracy score<br><br><br><u>TEAM 5</u><br>Heena Naaz DAML71<br>Jyotsna John DAML68<br>Nirupa DAML27<br>Tejashree DAML37<br>Uma DAML61</div>"
+    sidebarletters="<div><Font size=3><font color=black>The income of a person is influenced by various social, political and geographic factors. In this assignment we have attempted to eliminate all other noise and only focus on demographic factors that influence income. The model used a combination of Undersampling and Random Forest Classification to determine the income of an individual with a 79.5% accuracy score<br><br><br><u>TEAM 5</u><br>Heena Naaz DAML71<br>Jyotsna John DAML68<br>Nirupa DAML27<br>Tejashree DAML37<br>Uma DAML61</div>"
     st.write(sidebarletters,unsafe_allow_html=True)
 
 

@@ -3,7 +3,7 @@ Markdown
 seaborn
 matplotlib
 streamlit
-numpy
+numpy==1.24.3
 pandas
 folium
 scipy
